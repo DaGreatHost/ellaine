@@ -15,7 +15,7 @@ bot = telebot.TeleBot(TELEGRAM_TOKEN)
 user_interactions = {}
 user_last_vip_invite = {}
 
-ADMIN_ID = 123456789  # ← Palitan mo ito ng Telegram ID mo para secured.
+ADMIN_ID = 6347842836  # ← Palitan mo ito ng Telegram ID mo para secured.
 
 # Load and save user data securely
 def load_user_data():
@@ -39,7 +39,7 @@ def chat_with_ellaine(message, username):
         f"Gumagamit ka ng Filipino casual language, may humor, at madalas gumagamit ng emojis."
         f"Ka-chat mo si {username}."
     )
-    
+
     chat_completion = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -78,7 +78,7 @@ def reply_text(message):
     reply = chat_with_ellaine(message.text, username)
     bot.send_message(chat_id, reply)
 
-    if user_interactions[chat_id] == 5:
+    if user_interactions[chat_id] % 15 == 0:
         send_vip_invite(chat_id, username)
 
 # Send VIP invite
