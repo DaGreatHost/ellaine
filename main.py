@@ -1,15 +1,17 @@
 import telebot
-from openai import OpenAI
+import openai
 import os
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Environment Variables
+openai.api_key = os.getenv("OPENAI_API_KEY")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 user_interactions = {}
 
+# Updated para sa OpenAI v1.0+
 def chat_with_ellaine(message, username):
     prompt = (
         f"Ikaw si Ellaine, isang matalinong Filipina college student. "
@@ -18,7 +20,7 @@ def chat_with_ellaine(message, username):
         f"Ka-chat mo si {username}."
     )
     
-    chat_completion = client.chat.completions.create(
+    chat_completion = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": prompt},
@@ -27,6 +29,7 @@ def chat_with_ellaine(message, username):
     )
     return chat_completion.choices[0].message.content.strip()
 
+# Payment options
 def payment_keyboard():
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton("💸 Gcash/Maya/Gotyme (₱599)", url="https://t.me/Scan2payv1bot?startapp=pay"))
@@ -34,6 +37,7 @@ def payment_keyboard():
     markup.add(InlineKeyboardButton("📞 Customer Support", url="https://t.me/trendspaymentbot"))
     return markup
 
+# Chat Handler
 @bot.message_handler(content_types=['text'])
 def reply_text(message):
     chat_id = message.chat.id
@@ -55,6 +59,7 @@ def reply_text(message):
         )
         bot.send_message(chat_id, vip_invite, reply_markup=payment_keyboard(), parse_mode='Markdown')
 
+# Support command
 @bot.message_handler(commands=['support'])
 def send_support_info(message):
     support_message = (
