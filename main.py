@@ -11,13 +11,10 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
-
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 user_interactions = {}
 user_last_vip_invite = {}
-
-ADMIN_ID = 123456789  # ← Palitan mo ito ng Telegram ID mo para secured.
 
 # Load and save user data securely
 def load_user_data():
@@ -41,7 +38,7 @@ def chat_with_ellaine(message, username):
         f"Gumagamit ka ng Filipino casual language, may humor, at madalas gumagamit ng emojis."
         f"Ka-chat mo si {username}."
     )
-    
+
     chat_completion = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
