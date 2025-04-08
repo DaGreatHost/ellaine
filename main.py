@@ -53,7 +53,7 @@ def chat_with_ellaine(message, username):
 def payment_keyboard():
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton("💸 Gcash/Maya/Gotyme (₱599)", url="https://t.me/Scan2payv1bot?startapp=pay"))
-    markup.add(InlineKeyboardButton("🌎 PayPal (₱599)", url="https://www.paypal.me/allysantiago100"))
+    markup.add(InlineKeyboardButton("🪙 TON Payment (₱599)", url="https://app.tonkeeper.com/transfer/UQAwroBrBTSzzVYx_IXpR-R_KJ_mZQgmT7uNsUZdJ5MM68ep?amount=2099700000&text=exclusivechannel"))
     markup.add(InlineKeyboardButton("📞 Customer Support", url="https://t.me/trendspaymentbot"))
     return markup
 
