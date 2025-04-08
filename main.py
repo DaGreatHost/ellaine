@@ -1,12 +1,11 @@
 import telebot
-import openai
+from openai import OpenAI
 import os
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
-openai.api_key = OPENAI_API_KEY
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 user_interactions = {}
@@ -19,14 +18,14 @@ def chat_with_ellaine(message, username):
         f"Ka-chat mo si {username}."
     )
     
-    chat = openai.ChatCompletion.create(
+    chat_completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": prompt},
             {"role": "user", "content": message}
         ]
     )
-    return chat.choices[0].message.content.strip()
+    return chat_completion.choices[0].message.content.strip()
 
 def payment_keyboard():
     markup = InlineKeyboardMarkup()
