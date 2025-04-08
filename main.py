@@ -9,6 +9,8 @@ import time
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
+
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
